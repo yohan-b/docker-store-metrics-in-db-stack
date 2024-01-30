@@ -1,0 +1,31 @@
+version: "2.1"
+
+services:
+
+  store-metrics-in-db:
+    container_name: store-metrics-in-db
+    image: store-metrics-in-db:$VERSION_STORE_METRICS_IN_DB
+    networks:
+      - mysqlnet
+      - metricsnet
+    ports:
+      - "3001:3001/tcp"
+    expose: 
+      - "3001/tcp"
+    environment:
+      FLASK_APP: api.py
+      #FLASK_ENV: development
+      FLASK_ENV: production
+      FLASK_RUN_HOST: "0.0.0.0"
+      FLASK_RUN_PORT: 3001
+    volumes:
+      - /mnt/volumes/store-metrics-in-db/data/migrations:/root/migrations:z
+      - ${RUN_DIRECTORY}/conf.yml:/root/conf.yml
+
+networks:
+
+  mysqlnet:
+    external: true
+
+  metricsnet:
+    external: true

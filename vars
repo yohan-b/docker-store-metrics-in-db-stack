@@ -1,0 +1,4 @@
+#!/bin/bash
+export CLOUD_SERVER=cloud.scimetis.net
+export GIT_SERVER=git.scimetis.net
+
